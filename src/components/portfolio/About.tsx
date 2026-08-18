@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
 import { Reveal, SectionHeading, useInView } from "@/components/Reveal";
 
-const STATS = [
-  { value: 3, suffix: "+", label: "Projects" },
-  { value: 5, suffix: "+", label: "Skills" },
-  { value: 3, suffix: "rd", label: "Year" },
-  { value: 2027, suffix: "", label: "Graduation", static: true },
-];
+const PROJECTS_KEY = "sz-projects";
+
+function useProjectCount() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const read = () => {
+      try {
+        const raw = localStorage.getItem(PROJECTS_KEY);
+        const list = raw ? JSON.parse(raw) : [];
+        setCount(Array.isArray(list) ? list.length : 0);
+      } catch {
+        setCount(0);
+      }
+    };
+    read();
+    window.addEventListener("storage", read);
+    window.addEventListener("sz-projects-changed", read);
+    return () => {
+      window.removeEventListener("storage", read);
+      window.removeEventListener("sz-projects-changed", read);
+    };
+  }, []);
+
+  return count;
+}
 
 function Counter({
   value,
@@ -43,6 +63,14 @@ function Counter({
 }
 
 export function About() {
+  const projectCount = useProjectCount();
+  const stats = [
+    { value: projectCount, suffix: "", label: "Projects" },
+    { value: 5, suffix: "+", label: "Skills" },
+    { value: 3, suffix: "rd", label: "Year" },
+    { value: 2028, suffix: "", label: "Graduation", isStatic: true },
+  ];
+
   return (
     <section id="about" className="mx-auto max-w-6xl px-5 py-24">
       <SectionHeading
@@ -77,10 +105,10 @@ export function About() {
       </div>
 
       <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {STATS.map((s, i) => (
+        {stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 90}>
             <div className="glass hover-lift rounded-xl p-6 text-center">
-              <Counter value={s.value} suffix={s.suffix} isStatic={"static" in s} />
+              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic} />
               <p className="mt-2 text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {s.label}
               </p>
