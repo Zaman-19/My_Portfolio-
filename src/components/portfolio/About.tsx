@@ -5,15 +5,23 @@ const STATS = [
   { value: 3, suffix: "+", label: "Projects" },
   { value: 5, suffix: "+", label: "Skills" },
   { value: 3, suffix: "rd", label: "Year" },
-  { value: 2027, suffix: "", label: "Graduation" },
+  { value: 2027, suffix: "", label: "Graduation", static: true },
 ];
 
-function Counter({ value, suffix }: { value: number; suffix: string }) {
+function Counter({
+  value,
+  suffix,
+  isStatic,
+}: {
+  value: number;
+  suffix: string;
+  isStatic?: boolean;
+}) {
   const { ref, visible } = useInView<HTMLSpanElement>();
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(isStatic ? value : 0);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || isStatic) return;
     const start = performance.now();
     const dur = 1200;
     let raf = 0;
@@ -24,7 +32,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [visible, value]);
+  }, [visible, value, isStatic]);
 
   return (
     <span ref={ref} className="font-display text-3xl font-bold text-gradient">
@@ -72,7 +80,7 @@ export function About() {
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 90}>
             <div className="glass hover-lift rounded-xl p-6 text-center">
-              <Counter value={s.value} suffix={s.suffix} />
+              <Counter value={s.value} suffix={s.suffix} isStatic={"static" in s} />
               <p className="mt-2 text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {s.label}
               </p>
