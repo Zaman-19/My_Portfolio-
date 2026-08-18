@@ -63,6 +63,14 @@ function Counter({
 }
 
 export function About() {
+  const projectCount = useProjectCount();
+  const stats = [
+    { value: projectCount, suffix: "", label: "Projects" },
+    { value: 5, suffix: "+", label: "Skills" },
+    { value: 3, suffix: "rd", label: "Year" },
+    { value: 2028, suffix: "", label: "Graduation", isStatic: true },
+  ];
+
   return (
     <section id="about" className="mx-auto max-w-6xl px-5 py-24">
       <SectionHeading
