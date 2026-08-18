@@ -105,10 +105,10 @@ export function About() {
       </div>
 
       <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {STATS.map((s, i) => (
+        {stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 90}>
             <div className="glass hover-lift rounded-xl p-6 text-center">
-              <Counter value={s.value} suffix={s.suffix} isStatic={"static" in s} />
+              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic} />
               <p className="mt-2 text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {s.label}
               </p>
