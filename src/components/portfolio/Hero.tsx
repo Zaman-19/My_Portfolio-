@@ -81,9 +81,10 @@ export function Hero() {
             className="hero-in mt-6 max-w-lg text-muted-foreground"
             style={{ animationDelay: "500ms" }}
           >
-            I'm a third-year ICE student at Bangladesh University of Professionals, building
-            for the web where software meets communication systems — clean frontends,
-            structured databases, and networks that hold everything together.
+            I am a third-year ICE student at Bangladesh University of Professionals,
+            passionate about building where software meets communication. Exploring web
+            development, databases, and networking while turning ideas into clean, practical
+            digital experiences.
           </p>
           <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "640ms" }}>
             <a

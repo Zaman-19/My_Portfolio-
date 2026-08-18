@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
 import { Reveal, SectionHeading, useInView } from "@/components/Reveal";
 
-const STATS = [
-  { value: 3, suffix: "+", label: "Projects" },
-  { value: 5, suffix: "+", label: "Skills" },
-  { value: 3, suffix: "rd", label: "Year" },
-  { value: 2027, suffix: "", label: "Graduation", static: true },
-];
+const PROJECTS_KEY = "sz-projects";
+
+function useProjectCount() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const read = () => {
+      try {
+        const raw = localStorage.getItem(PROJECTS_KEY);
+        const list = raw ? JSON.parse(raw) : [];
+        setCount(Array.isArray(list) ? list.length : 0);
+      } catch {
+        setCount(0);
+      }
+    };
+    read();
+    window.addEventListener("storage", read);
+    window.addEventListener("sz-projects-changed", read);
+    return () => {
+      window.removeEventListener("storage", read);
+      window.removeEventListener("sz-projects-changed", read);
+    };
+  }, []);
+
+  return count;
+}
 
 function Counter({
   value,
