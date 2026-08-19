@@ -7,6 +7,7 @@ import { Education } from "@/components/portfolio/Education";
 import { Skills } from "@/components/portfolio/Skills";
 import { Services } from "@/components/portfolio/Services";
 import { Projects } from "@/components/portfolio/Projects";
+import { CV } from "@/components/portfolio/CV";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer, SignalDivider } from "@/components/portfolio/Footer";
 

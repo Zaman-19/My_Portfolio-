@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/portfolio/Logo";
 
 const LINKS = [
   { id: "home", label: "Home" },
@@ -8,6 +9,7 @@ const LINKS = [
   { id: "skills", label: "Skills" },
   { id: "services", label: "Services" },
   { id: "projects", label: "Projects" },
+  { id: "cv", label: "CV" },
   { id: "contact", label: "Contact" },
 ];
 
