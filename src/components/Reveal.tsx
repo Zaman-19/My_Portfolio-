@@ -57,10 +57,19 @@ export function SectionHeading({
   subtitle?: string;
 }) {
   return (
-    <Reveal className="mb-12 max-w-2xl">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-      {subtitle ? <p className="mt-3 text-muted-foreground">{subtitle}</p> : null}
+    <Reveal className="mb-12 max-w-3xl">
+      <p className="eyebrow">
+        <span className="eyebrow-bar" />
+        {eyebrow}
+      </p>
+      <h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.05]">
+        {title}
+      </h2>
+      {subtitle ? (
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          {subtitle}
+        </p>
+      ) : null}
     </Reveal>
   );
 }
