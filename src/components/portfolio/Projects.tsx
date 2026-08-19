@@ -104,6 +104,7 @@ export function Projects() {
   const persist = (next: Project[]) => {
     setProjects(next);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    window.dispatchEvent(new Event("sz-projects-changed"));
   };
 
   const submit = (e: FormEvent) => {
