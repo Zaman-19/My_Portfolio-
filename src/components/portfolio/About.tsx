@@ -83,11 +83,11 @@ export function About() {
           <div className="glass rounded-2xl p-7">
             <h3 className="font-display text-lg font-bold">Bio</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              I'm Shakik Zaman, an Information &amp; Communication Engineering student at
-              Bangladesh University of Professionals. My interests sit at the intersection of
-              web development and communication systems — I enjoy turning ideas into
-              interfaces, designing databases that stay clean as they grow, and understanding
-              how data actually travels across a network.
+              Building where software meets communication systems.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              A curious engineer-in-the-making, exploring clean interfaces, structured data,
+              and the networks that connect them.
             </p>
           </div>
         </Reveal>

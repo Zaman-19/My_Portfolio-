@@ -36,14 +36,7 @@ function RoleCycler() {
     return () => clearTimeout(timeout);
   }, [text, deleting, index]);
 
-  return (
-    <span className="text-gradient">
-      {text}
-      <span className="ml-0.5 inline-block w-[2px] animate-pulse bg-accent align-middle text-transparent">
-        |
-      </span>
-    </span>
-  );
+  return <span className="text-gradient">{text}</span>;
 }
 
 export function Hero() {
