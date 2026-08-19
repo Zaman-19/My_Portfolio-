@@ -112,12 +112,26 @@
 }
 
 @utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--accent);
+  background: var(--gradient-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility eyebrow-bar {
+  display: inline-block;
+  width: 2.25rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--gradient-signal);
 }
 
 @utility text-gradient {
