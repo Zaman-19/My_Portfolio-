@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Download, Mail } from "lucide-react";
+import { FolderGit2, Mail } from "lucide-react";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
 import photo from "@/assets/shakik.jpg.asset.json";
 
