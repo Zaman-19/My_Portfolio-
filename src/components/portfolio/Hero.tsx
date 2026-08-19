@@ -88,10 +88,10 @@ export function Hero() {
               <Mail size={16} /> Contact Me
             </a>
             <a
-              href="#contact"
+              href="#projects"
               className="glass inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors hover:border-accent/50 hover:text-accent"
             >
-              <Download size={16} /> Download CV
+              <FolderGit2 size={16} /> View Projects
             </a>
           </div>
         </div>

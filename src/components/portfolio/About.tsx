@@ -95,10 +95,9 @@ export function About() {
           <div className="glass rounded-2xl p-7">
             <h3 className="font-display text-lg font-bold">Career Objective</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              To grow into a well-rounded software engineer who can build products end to end
-              — from responsive frontends and reliable data layers to the network
-              infrastructure beneath them — while contributing to teams that value
-              craftsmanship and continuous learning.
+              To become a versatile software engineer capable of building reliable,
+              user-focused products from frontend to backend, while developing strong
+              foundations in databases, networks, and modern software engineering practices.
             </p>
           </div>
         </Reveal>
