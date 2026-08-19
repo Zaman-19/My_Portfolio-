@@ -1,4 +1,4 @@
-import { Code2, Database, Globe, Network } from "lucide-react";
+import { Code2, Cpu, Database, Globe, Network, Sigma } from "lucide-react";
 import { Reveal, SectionHeading, useInView } from "@/components/Reveal";
 
 const GROUPS = [
@@ -7,9 +7,9 @@ const GROUPS = [
     title: "Programming",
     skills: [
       { name: "C", level: 80 },
-      { name: "C++", level: 72 },
-      { name: "Python", level: 68 },
-      { name: "JavaScript", level: 75 },
+      { name: "C++", level: 74 },
+      { name: "Java", level: 70 },
+      { name: "JavaScript", level: 76 },
     ],
   },
   {
@@ -37,6 +37,25 @@ const GROUPS = [
       { name: "TCP/IP Fundamentals", level: 74 },
       { name: "Network Design", level: 66 },
       { name: "Cisco Packet Tracer", level: 70 },
+    ],
+  },
+  {
+    icon: Cpu,
+    title: "Operating Systems",
+    skills: [
+      { name: "Linux Fundamentals", level: 72 },
+      { name: "Shell & Command Line", level: 68 },
+      { name: "Processes & Memory", level: 66 },
+      { name: "Windows Administration", level: 74 },
+    ],
+  },
+  {
+    icon: Sigma,
+    title: "MATLAB",
+    skills: [
+      { name: "MATLAB Programming", level: 72 },
+      { name: "Signal Processing", level: 68 },
+      { name: "Plotting & Simulation", level: 70 },
     ],
   },
 ];
