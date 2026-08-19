@@ -75,8 +75,8 @@ export function About() {
     <section id="about" className="mx-auto max-w-6xl px-5 py-24">
       <SectionHeading
         eyebrow="About"
-        title="Engineering signal out of noise"
-        subtitle="A short introduction to who I am and what I'm working toward."
+        title="Building ideas into systems"
+        subtitle="A short introduction to who I am, what I build, and where I’m headed."
       />
       <div className="grid gap-10 md:grid-cols-2">
         <Reveal>
