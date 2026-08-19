@@ -108,7 +108,7 @@ export function About() {
         {stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 90}>
             <div className="glass hover-lift rounded-xl p-6 text-center">
-              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic} />
+              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic === true} />
               <p className="mt-2 text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {s.label}
               </p>
