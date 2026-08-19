@@ -42,6 +42,7 @@ function Index() {
       <Services />
       <Projects />
       <SignalDivider />
+      <CV />
       <Contact />
       <Footer />
       <Toaster />
