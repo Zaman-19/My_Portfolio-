@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/portfolio/Logo";
 
 const LINKS = [
   { id: "home", label: "Home" },
@@ -8,6 +9,7 @@ const LINKS = [
   { id: "skills", label: "Skills" },
   { id: "services", label: "Services" },
   { id: "projects", label: "Projects" },
+  { id: "cv", label: "CV" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -37,20 +39,15 @@ export function Nav() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav className="glass">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-          <a href="#home" className="flex items-center gap-3" aria-label="Shakik Zaman home">
-            <span
-              className="grid h-9 w-9 place-items-center font-display text-sm font-bold text-primary-foreground"
-              style={{
-                background: "var(--gradient-aurora)",
-                clipPath:
-                  "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
-                boxShadow: "0 0 22px color-mix(in oklab, var(--primary) 60%, transparent)",
-              }}
-            >
-              SZ
-            </span>
-            <span className="font-display text-sm font-bold tracking-[0.2em] uppercase">
-              Shakik Zaman
+          <a href="#home" className="group flex items-center gap-3" aria-label="Shakik Zaman home">
+            <Logo />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-sm font-bold tracking-[0.22em] uppercase">
+                Shakik Zaman
+              </span>
+              <span className="mt-1 hidden text-[10px] tracking-[0.3em] text-muted-foreground uppercase sm:block">
+                ICE · BUP
+              </span>
             </span>
           </a>
 

@@ -4,7 +4,7 @@ import { Reveal, SectionHeading } from "@/components/Reveal";
 export function Education() {
   return (
     <section id="education" className="mx-auto max-w-6xl px-5 py-24">
-      <SectionHeading eyebrow="Education" title="Academic track" />
+      <SectionHeading eyebrow="Education" title="Academic status" />
       <Reveal>
         <div className="relative pl-10">
           <div

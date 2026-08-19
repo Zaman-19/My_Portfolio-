@@ -83,11 +83,11 @@ export function About() {
           <div className="glass rounded-2xl p-7">
             <h3 className="font-display text-lg font-bold">Bio</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              I'm Shakik Zaman, an Information &amp; Communication Engineering student at
-              Bangladesh University of Professionals. My interests sit at the intersection of
-              web development and communication systems — I enjoy turning ideas into
-              interfaces, designing databases that stay clean as they grow, and understanding
-              how data actually travels across a network.
+              Building where software meets communication systems.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              A curious engineer-in-the-making, exploring clean interfaces, structured data,
+              and the networks that connect them.
             </p>
           </div>
         </Reveal>
@@ -95,10 +95,9 @@ export function About() {
           <div className="glass rounded-2xl p-7">
             <h3 className="font-display text-lg font-bold">Career Objective</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              To grow into a well-rounded software engineer who can build products end to end
-              — from responsive frontends and reliable data layers to the network
-              infrastructure beneath them — while contributing to teams that value
-              craftsmanship and continuous learning.
+              To become a versatile software engineer capable of building reliable,
+              user-focused products from frontend to backend, while developing strong
+              foundations in databases, networks, and modern software engineering practices.
             </p>
           </div>
         </Reveal>
@@ -108,7 +107,7 @@ export function About() {
         {stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 90}>
             <div className="glass hover-lift rounded-xl p-6 text-center">
-              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic} />
+              <Counter value={s.value} suffix={s.suffix} isStatic={s.isStatic === true} />
               <p className="mt-2 text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {s.label}
               </p>
