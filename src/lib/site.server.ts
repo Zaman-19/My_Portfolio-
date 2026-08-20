@@ -39,7 +39,7 @@ export async function readPublicCv(): Promise<PublicCv | null> {
   if (!cv) return null;
   const { data, error } = await supabaseAdmin.storage
     .from("cv")
-    .createSignedUrl(cv.path, 60 * 60, { download: cv.name });
+    .createSignedUrl(cv.path, 60 * 60);
   if (error || !data?.signedUrl) return null;
   return { ...cv, url: data.signedUrl };
 }

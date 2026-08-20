@@ -56,8 +56,7 @@ export function CV() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href={cv.url}
-                  download={cv.name}
+                  href={`${cv.url}&download=${encodeURIComponent(cv.name)}`}
                   className="inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
                   style={{
                     background: "var(--gradient-signal)",
@@ -67,7 +66,7 @@ export function CV() {
                   <Download size={16} /> Download CV
                 </a>
                 <a
-                  href={cv.url.replace("&download=", "&view=")}
+                  href={cv.url}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-accent"
