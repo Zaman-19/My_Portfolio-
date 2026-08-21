@@ -26,7 +26,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -41,20 +41,32 @@ function AuthPage() {
     e.preventDefault();
     setBusy(true);
     try {
-      if (mode === "signin") {
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        toast.success("Reset link sent", { description: "Check your inbox." });
+        setMode("signin");
+      } else if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Welcome back");
         navigate({ to: "/admin" });
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: `${window.location.origin}/admin` },
         });
         if (error) throw error;
-        toast.success("Account created", { description: "You can sign in now." });
-        setMode("signin");
+        if (data.session) {
+          toast.success("Owner account created");
+          navigate({ to: "/admin" });
+        } else {
+          toast.success("Account created", { description: "You can sign in now." });
+          setMode("signin");
+        }
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
@@ -62,6 +74,7 @@ function AuthPage() {
       setBusy(false);
     }
   };
+
 
   const field =
     "mt-1.5 w-full rounded-lg border border-input bg-background/60 px-3 py-2.5 text-sm outline-none focus:border-accent";
@@ -103,18 +116,20 @@ function AuthPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </label>
-            <label className="block text-sm">
-              Password
-              <input
-                type="password"
-                required
-                minLength={6}
-                autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                className={field}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
+            {mode !== "forgot" ? (
+              <label className="block text-sm">
+                Password
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                  className={field}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+            ) : null}
           </div>
 
           <button
@@ -123,18 +138,33 @@ function AuthPage() {
             className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
             style={{ background: "var(--gradient-signal)", boxShadow: "var(--shadow-glow)" }}
           >
-            <Lock size={16} /> {mode === "signin" ? "Sign in" : "Create owner account"}
+            <Lock size={16} />{" "}
+            {mode === "signin"
+              ? "Sign in"
+              : mode === "signup"
+                ? "Create owner account"
+                : "Send reset link"}
           </button>
 
-          <button
-            type="button"
-            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-            className="mt-4 w-full text-center text-xs text-muted-foreground hover:text-accent"
-          >
-            {mode === "signin"
-              ? "First time? Create the owner account"
-              : "Already have an account? Sign in"}
-          </button>
+          <div className="mt-4 space-y-2">
+            <button
+              type="button"
+              onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
+              className="w-full text-center text-xs text-muted-foreground hover:text-accent"
+            >
+              {mode === "signup"
+                ? "Already have an account? Sign in"
+                : "First time? Create the owner account"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode(mode === "forgot" ? "signin" : "forgot")}
+              className="w-full text-center text-xs text-muted-foreground hover:text-accent"
+            >
+              {mode === "forgot" ? "Back to sign in" : "Forgot password?"}
+            </button>
+          </div>
+
         </form>
       </div>
       <Toaster />
