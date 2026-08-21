@@ -8,6 +8,8 @@ import { Skills } from "@/components/portfolio/Skills";
 import { Services } from "@/components/portfolio/Services";
 import { Projects } from "@/components/portfolio/Projects";
 import { CV } from "@/components/portfolio/CV";
+import { Achievements } from "@/components/portfolio/Achievements";
+import { Hobbies } from "@/components/portfolio/Hobbies";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer, SignalDivider } from "@/components/portfolio/Footer";
 
@@ -41,6 +43,9 @@ function Index() {
       <SignalDivider />
       <Services />
       <Projects />
+      <SignalDivider />
+      <Achievements />
+      <Hobbies />
       <SignalDivider />
       <CV />
       <Contact />
