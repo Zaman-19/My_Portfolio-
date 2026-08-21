@@ -1,4 +1,5 @@
-import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Shield } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
 
 const LINKS = [
@@ -61,6 +62,13 @@ export function Footer() {
           >
             <Mail size={16} />
           </a>
+          <Link
+            to="/admin"
+            aria-label="Owner admin panel"
+            className="glass grid h-9 w-9 place-items-center rounded-lg text-muted-foreground hover:text-accent"
+          >
+            <Shield size={16} />
+          </Link>
           <a
             href="#home"
             aria-label="Back to top"
