@@ -14,6 +14,24 @@ export const getAdminStatus = createServerFn({ method: "GET" })
     return { isAdmin: claimed || (await isUserAdmin(context.userId)) };
   });
 
+export const createCvUploadUrl = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { name: string }) => data)
+  .handler(async ({ data, context }) => {
+    const { requireAdmin, makeCvUploadUrl } = await import("./site.server");
+    await requireAdmin(context.userId);
+    return await makeCvUploadUrl(data.name);
+  });
+
+export const finalizeCv = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { path: string; name: string; type: string; size: number }) => data)
+  .handler(async ({ data, context }) => {
+    const { requireAdmin, saveCvRecord } = await import("./site.server");
+    await requireAdmin(context.userId);
+    return await saveCvRecord(data);
+  });
+
 export const uploadCv = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { name: string; type: string; base64: string }) => data)
@@ -22,6 +40,7 @@ export const uploadCv = createServerFn({ method: "POST" })
     await requireAdmin(context.userId);
     return await storeCv(data);
   });
+
 
 export const removeCv = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
