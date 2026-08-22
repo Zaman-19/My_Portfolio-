@@ -104,9 +104,18 @@ function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => 
     }
     setBusy(true);
     try {
-      const base64 = await toBase64(file);
-      const next = await uploadCv({
-        data: { name: file.name, type: file.type || "application/pdf", base64 },
+      const { path, token } = await createCvUploadUrl({ data: { name: file.name } });
+      const { error } = await supabase.storage.from("cv").uploadToSignedUrl(path, token, file, {
+        contentType: file.type || "application/pdf",
+      });
+      if (error) throw new Error(error.message);
+      const next = await finalizeCv({
+        data: {
+          path,
+          name: file.name,
+          type: file.type || "application/pdf",
+          size: file.size,
+        },
       });
       setCv(next as PublicCv);
       toast.success("CV published", { description: "Visitors can now view and download it." });
@@ -116,6 +125,7 @@ function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => 
       setBusy(false);
     }
   };
+
 
   const onRemoveCv = async () => {
     setBusy(true);
