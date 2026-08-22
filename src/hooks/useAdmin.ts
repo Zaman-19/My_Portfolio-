@@ -7,12 +7,14 @@ export function useAdmin() {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const userId = session?.user.id ?? null;
 
   useEffect(() => {
     let active = true;
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
-      if (active) setSession(next);
+    const { data: sub } = supabase.auth.onAuthStateChange((event, next) => {
+      if (!active || event === "TOKEN_REFRESHED") return;
+      setSession(next);
     });
 
     supabase.auth.getSession().then(({ data }) => {
@@ -30,11 +32,11 @@ export function useAdmin() {
 
   useEffect(() => {
     let active = true;
-    if (!session) {
+    if (!userId) {
       setIsAdmin(false);
+      setLoading(false);
       return;
     }
-    setLoading(true);
     getAdminStatus()
       .then((res) => active && setIsAdmin(res.isAdmin))
       .catch(() => active && setIsAdmin(false))
@@ -42,7 +44,7 @@ export function useAdmin() {
     return () => {
       active = false;
     };
-  }, [session]);
+  }, [userId]);
 
   return { session, isAdmin, loading, signOut: () => supabase.auth.signOut() };
 }

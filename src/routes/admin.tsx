@@ -34,15 +34,6 @@ const field =
 
 type PublicCv = { name: string; size: number; updatedAt: string; url: string };
 
-function toBase64(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result).split(",")[1] ?? "");
-    reader.onerror = () => reject(new Error("Could not read the file"));
-    reader.readAsDataURL(file);
-  });
-}
-
 function AdminPage() {
   const navigate = useNavigate();
   const { session, isAdmin, loading, signOut } = useAdmin();
@@ -83,6 +74,8 @@ function AdminPage() {
 function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => void }) {
   const [cv, setCv] = useState<PublicCv | null>(null);
   const [busy, setBusy] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState("");
+  const [uploadError, setUploadError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [items, setItems] = useState<Achievement[]>([]);
@@ -96,19 +89,36 @@ function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => 
 
   const onFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    e.target.value = "";
     if (!file) return;
+    const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    const allowedExtension = /\.(pdf|doc|docx)$/i.test(file.name);
+    if (!allowedTypes.includes(file.type) && !allowedExtension) {
+      toast.error("Unsupported file", { description: "Choose a PDF, DOC, or DOCX file." });
+      e.target.value = "";
+      return;
+    }
     if (file.size > MAX_BYTES) {
       toast.error("File too large", { description: "Please upload a file under 8 MB." });
+      e.target.value = "";
       return;
     }
     setBusy(true);
+    setUploadError("");
     try {
+      setUploadStatus("Checking your session…");
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError || !userData.user) {
+        throw new Error("Your session expired. Please sign in once more, then upload.");
+      }
+
+      setUploadStatus("Preparing secure upload…");
       const { path, token } = await createCvUploadUrl({ data: { name: file.name } });
+      setUploadStatus("Uploading CV…");
       const { error } = await supabase.storage.from("cv").uploadToSignedUrl(path, token, file, {
         contentType: file.type || "application/pdf",
       });
       if (error) throw new Error(error.message);
+      setUploadStatus("Publishing CV…");
       const next = await finalizeCv({
         data: {
           path,
@@ -118,11 +128,16 @@ function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => 
         },
       });
       setCv(next as PublicCv);
+      setUploadStatus("");
       toast.success("CV published", { description: "Visitors can now view and download it." });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Upload failed");
+      const message = err instanceof Error ? err.message : "Upload failed";
+      setUploadError(message);
+      setUploadStatus("");
+      toast.error("CV upload failed", { description: message });
     } finally {
       setBusy(false);
+      e.target.value = "";
     }
   };
 
@@ -200,6 +215,14 @@ function AdminDashboard({ email, onSignOut }: { email: string; onSignOut: () => 
         <p className="mt-1 text-sm text-muted-foreground">
           Only you can upload. Everyone else can view and download.
         </p>
+        {uploadStatus ? (
+          <p className="mt-4 text-sm font-medium text-accent" role="status">{uploadStatus}</p>
+        ) : null}
+        {uploadError ? (
+          <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive" role="alert">
+            {uploadError}
+          </p>
+        ) : null}
         <input
           ref={inputRef}
           type="file"
