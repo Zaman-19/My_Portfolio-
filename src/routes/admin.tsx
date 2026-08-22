@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { useAdmin } from "@/hooks/useAdmin";
-import { getPublicCv, removeCv, uploadCv } from "@/lib/site.functions";
+import { createCvUploadUrl, finalizeCv, getPublicCv, removeCv } from "@/lib/site.functions";
 import { fetchAchievements, type Achievement } from "@/components/portfolio/Achievements";
 import { formatSize } from "@/components/portfolio/CV";
 
