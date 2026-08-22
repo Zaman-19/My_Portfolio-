@@ -74,7 +74,44 @@ export async function requireAdmin(userId: string) {
   if (!(await isUserAdmin(userId))) throw new Error("Forbidden: admin only");
 }
 
+export async function makeCvUploadUrl(name: string) {
+  const ext = name.includes(".") ? name.split(".").pop() : "pdf";
+  const path = `cv-${Date.now()}.${ext}`;
+  const { data, error } = await supabaseAdmin.storage.from("cv").createSignedUploadUrl(path);
+  if (error || !data) throw new Error(error?.message ?? "Could not start the upload");
+  return { path, token: data.token };
+}
+
+export async function saveCvRecord(input: {
+  path: string;
+  name: string;
+  type: string;
+  size: number;
+}): Promise<PublicCv> {
+  const previous = await readCv();
+  const value: CvInfo = {
+    name: input.name,
+    size: input.size,
+    type: input.type || "application/pdf",
+    path: input.path,
+    updatedAt: new Date().toISOString(),
+  };
+  const { error } = await supabaseAdmin
+    .from("site_settings")
+    .upsert({ key: CV_SETTING_KEY, value }, { onConflict: "key" });
+  if (error) throw new Error(error.message);
+
+  if (previous?.path && previous.path !== input.path) {
+    await supabaseAdmin.storage.from("cv").remove([previous.path]);
+  }
+
+  const publicCv = await readPublicCv();
+  if (!publicCv) throw new Error("Could not create a download link");
+  return publicCv;
+}
+
 export async function storeCv(input: {
+
   name: string;
   type: string;
   base64: string;
