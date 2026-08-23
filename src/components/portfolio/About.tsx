@@ -68,7 +68,7 @@ export function About() {
     { value: projectCount, suffix: "", label: "Projects" },
     { value: 5, suffix: "+", label: "Skills" },
     { value: 3, suffix: "rd", label: "Year" },
-    { value: 2028, suffix: "", label: "Graduation", isStatic: true },
+    { value: 2027, suffix: "", label: "Graduation", isStatic: true },
   ];
 
   return (
