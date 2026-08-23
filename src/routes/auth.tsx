@@ -4,7 +4,6 @@ import { Lock, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
-import { Logo } from "@/components/portfolio/Logo";
 
 const title = "Owner Login — Shakik Zaman";
 const description = "Private sign-in for the owner of Shakik Zaman's portfolio.";

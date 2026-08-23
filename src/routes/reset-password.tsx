@@ -4,7 +4,6 @@ import { KeyRound, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
-import { Logo } from "@/components/portfolio/Logo";
 
 const title = "Reset Password — Shakik Zaman";
 const description = "Set a new password for the owner account of Shakik Zaman's portfolio.";
