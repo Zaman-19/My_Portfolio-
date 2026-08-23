@@ -40,19 +40,23 @@ export function useInView<T extends HTMLElement>(once = true) {
 export function Reveal({
   children,
   delay = 0,
+  direction = "up",
   className = "",
 }: {
   children: ReactNode;
   delay?: number;
+  direction?: "up" | "left" | "right";
   className?: string;
 }) {
   const { ref, visible } = useInView<HTMLDivElement>();
+  const variant =
+    direction === "left" ? "reveal-left" : direction === "right" ? "reveal-right" : "reveal";
   return (
     <div
       ref={ref}
       data-visible={visible}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal ${className}`}
+      className={`${variant} ${className}`}
     >
       {children}
     </div>
