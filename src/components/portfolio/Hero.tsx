@@ -113,7 +113,7 @@ export function Hero() {
               style={{ background: "var(--gradient-aurora)" }}
             />
             <div
-              className="pulse-node relative h-64 w-64 overflow-hidden rounded-full border sm:h-80 sm:w-80"
+              className="pulse-node relative h-72 w-72 overflow-hidden rounded-full border sm:h-96 sm:w-96 lg:h-[26rem] lg:w-[26rem]"
               style={{ borderColor: "color-mix(in oklab, var(--accent) 60%, transparent)" }}
             >
               <img
