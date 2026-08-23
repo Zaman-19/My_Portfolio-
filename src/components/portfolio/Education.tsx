@@ -31,7 +31,7 @@ export function Education() {
                 Dept. of ICT
               </span>
               <span className="rounded-full border border-border px-3 py-1 text-muted-foreground">
-                Expected Graduation: 2028
+                Expected Graduation: 2027
               </span>
             </div>
           </div>

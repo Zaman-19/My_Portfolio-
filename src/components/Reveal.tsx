@@ -7,18 +7,30 @@ export function useInView<T extends HTMLElement>(once = true) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
           setVisible(true);
           if (once) io.disconnect();
-        } else if (!once) {
-          setVisible(false);
         }
       },
-      { threshold: 0.18 },
+      // threshold 0 + slight bottom margin: tall blocks and fast scrolls
+      // still trigger, so nothing stays blank
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
+
+    // Safety net: if the element is already on screen (SSR hydration,
+    // restored scroll position, fast flick), reveal it right away.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) setVisible(true);
+
     return () => io.disconnect();
   }, [once]);
 
