@@ -1,85 +1,64 @@
 import { Code2, Cpu, Database, Globe, Network, Sigma } from "lucide-react";
-import { Reveal, SectionHeading, useInView } from "@/components/Reveal";
+import { Reveal, SectionHeading } from "@/components/Reveal";
 
 const GROUPS = [
   {
     icon: Code2,
     title: "Programming",
     skills: [
-      { name: "C", level: 80 },
-      { name: "C++", level: 74 },
-      { name: "Java", level: 70 },
-      { name: "JavaScript", level: 76 },
+      "C",
+      "C++",
+      "Java",
+      "JavaScript",
     ],
   },
   {
     icon: Globe,
     title: "Web Development",
     skills: [
-      { name: "HTML5 & CSS3", level: 90 },
-      { name: "JavaScript (ES6+)", level: 76 },
-      { name: "Responsive Design", level: 85 },
+      "HTML5 & CSS3",
+      "JavaScript (ES6+)",
+      "Responsive Design",
     ],
   },
   {
     icon: Database,
     title: "Database",
     skills: [
-      { name: "SQL", level: 78 },
-      { name: "MySQL", level: 72 },
-      { name: "Data Modeling", level: 65 },
+      "SQL",
+      "MySQL",
+      "Data Modeling",
     ],
   },
   {
     icon: Network,
     title: "Networking",
     skills: [
-      { name: "TCP/IP Fundamentals", level: 74 },
-      { name: "Network Design", level: 66 },
-      { name: "Cisco Packet Tracer", level: 70 },
+      "TCP/IP Fundamentals",
+      "Network Design",
+      "Cisco Packet Tracer",
     ],
   },
   {
     icon: Cpu,
     title: "Operating Systems",
     skills: [
-      { name: "Linux Fundamentals", level: 72 },
-      { name: "Shell & Command Line", level: 68 },
-      { name: "Processes & Memory", level: 66 },
-      { name: "Windows Administration", level: 74 },
+      "Linux Fundamentals",
+      "Shell & Command Line",
+      "Processes & Memory",
+      "Windows Administration",
     ],
   },
   {
     icon: Sigma,
     title: "MATLAB",
     skills: [
-      { name: "MATLAB Programming", level: 72 },
-      { name: "Signal Processing", level: 68 },
-      { name: "Plotting & Simulation", level: 70 },
+      "MATLAB Programming",
+      "Signal Processing",
+      "Plotting & Simulation",
     ],
   },
 ];
-
-function Bar({ name, level }: { name: string; level: number }) {
-  const { ref, visible } = useInView<HTMLDivElement>();
-  return (
-    <div ref={ref}>
-      <div className="flex items-center justify-between text-xs">
-        <span className="text-foreground/90">{name}</span>
-        <span className="text-muted-foreground">{level}%</span>
-      </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
-        <div
-          className="h-full rounded-full transition-[width] duration-1000 ease-out"
-          style={{
-            width: visible ? `${level}%` : "0%",
-            background: "var(--gradient-signal)",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
 export function Skills() {
   return (
@@ -102,9 +81,14 @@ export function Skills() {
                 </span>
                 <h3 className="font-display text-lg font-bold">{g.title}</h3>
               </div>
-              <div className="mt-6 space-y-4">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {g.skills.map((s) => (
-                  <Bar key={s.name} {...s} />
+                  <span
+                    key={s}
+                    className="rounded-full border border-border bg-muted/40 px-3 py-1.5 text-sm text-foreground/90 transition-colors hover:border-accent/50 hover:text-accent"
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
             </div>
