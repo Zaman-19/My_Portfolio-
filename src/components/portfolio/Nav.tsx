@@ -41,7 +41,6 @@ export function Nav() {
       <nav className="glass">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
           <a href="#home" className="group flex items-center gap-3" aria-label="Shakik Zaman home">
-            <Logo />
             <span className="flex flex-col leading-none">
               <span className="font-display text-sm font-bold tracking-[0.22em] uppercase">
                 Shakik Zaman
