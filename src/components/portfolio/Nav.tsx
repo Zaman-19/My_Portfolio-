@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Logo } from "@/components/portfolio/Logo";
 
 const LINKS = [
   { id: "home", label: "Home" },
