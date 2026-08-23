@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FolderGit2, Mail } from "lucide-react";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
-import photo from "@/assets/shakik.jpg.asset.json";
+import photo from "@/assets/shakik-2.jpg.asset.json";
 
 const ROLES = [
   "ICE Student",
@@ -36,7 +36,17 @@ function RoleCycler() {
     return () => clearTimeout(timeout);
   }, [text, deleting, index]);
 
-  return <span className="text-gradient">{text}</span>;
+  const longest = ROLES.reduce((a, b) => (b.length > a.length ? b : a), "");
+
+  return (
+    <span className="relative inline-block align-top">
+      {/* invisible sizer keeps the line width/height stable so nothing shifts */}
+      <span aria-hidden className="invisible whitespace-nowrap">
+        {longest}
+      </span>
+      <span className="text-gradient absolute inset-0 whitespace-nowrap">{text}</span>
+    </span>
+  );
 }
 
 export function Hero() {
@@ -103,7 +113,7 @@ export function Hero() {
               style={{ background: "var(--gradient-aurora)" }}
             />
             <div
-              className="pulse-node relative h-64 w-64 overflow-hidden rounded-full border sm:h-80 sm:w-80"
+              className="pulse-node relative h-72 w-72 overflow-hidden rounded-full border sm:h-96 sm:w-96 lg:h-[26rem] lg:w-[26rem]"
               style={{ borderColor: "color-mix(in oklab, var(--accent) 60%, transparent)" }}
             >
               <img
