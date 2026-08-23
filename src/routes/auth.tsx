@@ -88,15 +88,12 @@ function AuthPage() {
           <ArrowLeft size={15} /> Back to portfolio
         </Link>
         <form onSubmit={submit} className="glass rounded-2xl p-8">
-          <div className="flex items-center gap-3">
-            <Logo />
-            <div>
-              <p className="eyebrow">
-                <span className="eyebrow-bar" />
-                Private
-              </p>
-              <h1 className="mt-1 font-display text-2xl font-bold">Owner access</h1>
-            </div>
+          <div>
+            <p className="eyebrow">
+              <span className="eyebrow-bar" />
+              Private
+            </p>
+            <h1 className="mt-1 font-display text-2xl font-bold">Owner access</h1>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
             This area is for the site owner only. Visitors can view and download the CV from the
