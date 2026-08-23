@@ -4,7 +4,6 @@ import { KeyRound, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
-import { Logo } from "@/components/portfolio/Logo";
 
 const title = "Reset Password — Shakik Zaman";
 const description = "Set a new password for the owner account of Shakik Zaman's portfolio.";
@@ -68,15 +67,12 @@ function ResetPasswordPage() {
           <ArrowLeft size={15} /> Back to sign in
         </Link>
         <form onSubmit={submit} className="glass rounded-2xl p-8">
-          <div className="flex items-center gap-3">
-            <Logo />
-            <div>
-              <p className="eyebrow">
-                <span className="eyebrow-bar" />
-                Recovery
-              </p>
-              <h1 className="mt-1 font-display text-2xl font-bold">New password</h1>
-            </div>
+          <div>
+            <p className="eyebrow">
+              <span className="eyebrow-bar" />
+              Recovery
+            </p>
+            <h1 className="mt-1 font-display text-2xl font-bold">New password</h1>
           </div>
 
           {!ready ? (
