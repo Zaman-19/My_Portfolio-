@@ -50,6 +50,45 @@ export type Database = {
         }
         Relationships: []
       }
+      projects: {
+        Row: {
+          created_at: string
+          demo: string
+          description: string
+          github: string
+          id: string
+          image_path: string
+          sort_order: number
+          tech: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          demo?: string
+          description?: string
+          github?: string
+          id?: string
+          image_path?: string
+          sort_order?: number
+          tech?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          demo?: string
+          description?: string
+          github?: string
+          id?: string
+          image_path?: string
+          sort_order?: number
+          tech?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
