@@ -13,7 +13,7 @@ export type Project = {
   github: string;
   demo: string;
   image_path: string;
-  imageUrl?: string;
+  imageUrl?: string | undefined;
 };
 
 export async function fetchProjects(): Promise<Project[]> {
