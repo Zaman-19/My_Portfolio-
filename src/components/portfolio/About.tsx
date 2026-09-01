@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
 import { Reveal, SectionHeading, useInView } from "@/components/Reveal";
-
-const PROJECTS_KEY = "sz-projects";
+import { countProjects } from "@/components/portfolio/Projects";
 
 function useProjectCount() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    let active = true;
     const read = () => {
-      try {
-        const raw = localStorage.getItem(PROJECTS_KEY);
-        const list = raw ? JSON.parse(raw) : [];
-        setCount(Array.isArray(list) ? list.length : 0);
-      } catch {
-        setCount(0);
-      }
+      countProjects().then((n) => active && setCount(n));
     };
     read();
-    window.addEventListener("storage", read);
-    window.addEventListener("sz-projects-changed", read);
+    const onChanged = (e: Event) => {
+      const detail = (e as CustomEvent<number>).detail;
+      if (typeof detail === "number") setCount(detail);
+      else read();
+    };
+    window.addEventListener("sz-projects-changed", onChanged);
     return () => {
-      window.removeEventListener("storage", read);
-      window.removeEventListener("sz-projects-changed", read);
+      active = false;
+      window.removeEventListener("sz-projects-changed", onChanged);
     };
   }, []);
 
